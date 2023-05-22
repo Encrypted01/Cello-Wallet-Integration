@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Celo Wallet Integration Example</title>
+  <title>Celo Wallet Integration</title>
 </head>
 <body>
-  <button id="connect-button">Connect to Celo Wallet</button>
+  <h1>Celo Wallet Integration Example</h1>
 
-  <script src="https://example.com/celo-wallet-sdk.js"></script>
+  <!-- Add your Celo wallet integration HTML code here -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@celo/contractkit@1.7.1/dist/contractkit.js"></script>
   <script>
-    // Initialize Celo wallet
-    const celoWallet = new CeloWallet('https://celo.example.com');
+    // Initialize Valora wallet
+    const valora = new Valora('https://celo.org/')
 
-    // Connect to Celo wallet
-    const connectButton = document.getElementById('connect-button');
-    connectButton.addEventListener('click', async () => {
-      try {
-        await celoWallet.connect();
-        console.log('Celo wallet connected:', celoWallet.account);
-        // Perform further actions with the connected wallet
-      } catch (error) {
-        console.error('Failed to connect to Celo wallet:', error);
-      }
-    });
+    // Connect to the Celo network
+    valora.init().then(() => {
+      console.log('Valora wallet connected to Celo network')
+    }).catch((error) => {
+      console.error('Failed to initialize Valora wallet:', error)
+    })
   </script>
+
 </body>
 </html>
