@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Celo Wallet Integration Example</title>
+</head>
+<body>
+  <h1>Celo Wallet Integration Example</h1>
+
+  <button onclick="initiateTransaction()">Initiate Transaction</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@celo/contractkit@1.10.3/dist/contractkit.min.js"></script>
+  <script>
+    const initCeloWallet = async () => {
+      if (window.celo) {
+        try {
+          await window.celo.enable();
+          const contractKit = new window.celoKit.ContractKit();
+          return contractKit;
+        } catch (error) {
+          console.error('Failed to initialize Celo wallet:', error);
+        }
+      } else {
+        console.error('Celo wallet not detected.');
+      }
+    };
+
+    const initiateTransaction = async () => {
+      const contractKit = await initCeloWallet();
+
+      if (contractKit) {
+        try {
+          const transaction = await contractKit.sendTransaction({
+            from: await contractKit.getAccounts()[0],
+            to: '0xrecipientAddress',
+            value: contractKit.web3.utils.toWei('1', 'ether')
+          });
+
+          console.log('Transaction initiated:', transaction);
+        } catch (error) {
+          console.error('Failed to initiate transaction:', error);
+        }
+      }
+    };
+
+    initCeloWallet();
+  </script>
+</body>
+</html>
 
